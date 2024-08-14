@@ -129,8 +129,9 @@
                   document.getElementById("messageForm").reset(); // Reset the form after success
                 } else {
                   response.json().then((data) => {
-                    document.getElementById("responseMessage").textContent =
-                      "Hiba történt: ";
+                    document.getElementById(
+                      "responseMessage"
+                    ).textContent = `Hiba történt: ${data.message}`;
                   });
                 }
               })
@@ -143,7 +144,7 @@
             // Wait for 3 seconds, then close the window
             setTimeout(() => {
               window.close();
-            }, 1200);
+            }, 3000);
           };
 
           sendWebhook();
