@@ -11,15 +11,15 @@ document
       "https://discord.com/api/webhooks/1263256486356975716/HmYRQLcpDBzS-abphLDb_QG7yJKcpzw6_gx7lPz5VfP-iOB79Eo2nN_sFRdBEhd8KHo3";
 
     const formData = new FormData();
+
     const embed = {
       title: "Új Üzenet",
       description: message,
       color: 5814783,
-      fields: [],
     };
 
     if (email) {
-      embed.fields.push({ name: "E-mail", value: email });
+      embed.fields = [{ name: "E-mail", value: email }];
     }
 
     formData.append("username", discordName);
@@ -38,8 +38,11 @@ document
           document.getElementById("responseMessage").textContent =
             "Üzenet sikeresen elküldve!";
         } else {
-          document.getElementById("responseMessage").textContent =
-            "Hiba történt az üzenet küldése során.";
+          response.json().then((data) => {
+            document.getElementById(
+              "responseMessage"
+            ).textContent = `Hiba történt: ${data.message}`;
+          });
         }
       })
       .catch((error) => {
